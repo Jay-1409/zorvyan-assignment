@@ -1,0 +1,9 @@
+.git
+.idea
+.vscode
+target
+**/target
+**/*.log
+.DS_Store
+docs
+bruno

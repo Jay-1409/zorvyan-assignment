@@ -1,0 +1,81 @@
+services:
+  oracle-db:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-db
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: app_user
+      APP_USER_PASSWORD: app_pass
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "echo 'SELECT 1 FROM dual;' | sqlplus -s app_user/app_pass@localhost:1521/XEPDB1 >/dev/null || exit 1",
+        ]
+      interval: 20s
+      timeout: 10s
+      retries: 12
+      start_period: 40s
+
+  ticketdb-redis:
+    image: redis:7.2-alpine
+    container_name: zorvyn-redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: user-service
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:oracle:thin:@oracle-db:1521/XEPDB1
+      DB_USERNAME: app_user
+      DB_PASSWORD: app_pass
+      JWT_SECRET: zaKEFxDMYfquYbjluaBin3vUbzLCNMF0h21Ri3++L1M=
+      JWT_EXPIRATION_MINUTES: 120
+    ports:
+      - "8081:8081"
+    restart: on-failure
+
+  finance-service:
+    build:
+      context: .
+      dockerfile: finance-service/Dockerfile
+    container_name: finance-service
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+      ticketdb-redis:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:oracle:thin:@oracle-db:1521/XEPDB1
+      DB_USERNAME: app_user
+      DB_PASSWORD: app_pass
+      JWT_SECRET: zaKEFxDMYfquYbjluaBin3vUbzLCNMF0h21Ri3++L1M=
+      REDIS_HOST: ticketdb-redis
+      REDIS_PORT: 6379
+      DASHBOARD_CACHE_TTL_MINUTES: 5
+      RECORD_BY_ID_CACHE_TTL_MINUTES: 2
+    ports:
+      - "8082:8082"
+    restart: on-failure
+
+volumes:
+  oracle_data:
+  redis_data:

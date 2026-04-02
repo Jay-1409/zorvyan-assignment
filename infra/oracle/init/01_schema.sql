@@ -1,0 +1,2 @@
+-- Step 1 skeleton.
+-- Oracle schema DDL will be added in Step 5.

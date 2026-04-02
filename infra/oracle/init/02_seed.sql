@@ -1,0 +1,2 @@
+-- Step 1 skeleton.
+-- Seed data will be added in Step 5.
