@@ -1,0 +1,16 @@
+meta {
+  name: Finance - Dashboard Summary (Viewer/Analyst/Admin)
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{financeBaseUrl}}/api/dashboard/summary?dateFrom=2026-01-01&dateTo=2026-12-31&recentLimit=5
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Accept: application/json
+}

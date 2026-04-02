@@ -1,0 +1,27 @@
+meta {
+  name: Users - Create User (Admin)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{userBaseUrl}}/api/users
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "username": "newanalyst",
+    "email": "newanalyst@zorvyn.local",
+    "password": "Analyst@123",
+    "role": "ANALYST",
+    "status": "ACTIVE"
+  }
+}

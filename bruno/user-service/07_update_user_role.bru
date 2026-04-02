@@ -1,0 +1,23 @@
+meta {
+  name: Users - Update Role (Admin)
+  type: http
+  seq: 7
+}
+
+patch {
+  url: {{userBaseUrl}}/api/users/{{userId}}/role
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "role": "VIEWER"
+  }
+}

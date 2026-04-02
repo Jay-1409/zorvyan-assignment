@@ -1,0 +1,31 @@
+meta {
+  name: Finance - Create Record (Admin)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{financeBaseUrl}}/api/records
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 1250.75,
+    "type": "INCOME",
+    "category": "Freelance",
+    "description": "Client payment",
+    "transactionDate": "2026-03-25"
+  }
+}
+
+vars:pre-request {
+  financeBaseUrl: http://localhost:8081/
+}

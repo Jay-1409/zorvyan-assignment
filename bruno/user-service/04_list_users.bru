@@ -1,0 +1,16 @@
+meta {
+  name: Users - List (Admin)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{userBaseUrl}}/api/users?page={{page}}&size={{size}}&sortBy=createdAt&sortDir=DESC
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Accept: application/json
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Finance - Get Record By Id (Analyst/Admin)
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{financeBaseUrl}}/api/records/{{recordId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Accept: application/json
+}

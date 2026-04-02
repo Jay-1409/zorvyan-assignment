@@ -1,0 +1,16 @@
+meta {
+  name: Finance - Delete Record (Admin)
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{financeBaseUrl}}/api/records/{{recordId}}
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Accept: application/json
+}

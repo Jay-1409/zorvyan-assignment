@@ -1,0 +1,23 @@
+meta {
+  name: Auth - Login (Analyst)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{userBaseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "email": "{{analystEmail}}",
+    "password": "{{analystPassword}}"
+  }
+}

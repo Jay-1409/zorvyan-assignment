@@ -1,0 +1,27 @@
+meta {
+  name: Finance - Update Record (Admin)
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{financeBaseUrl}}/api/records/{{recordId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "amount": 450.00,
+    "type": "EXPENSE",
+    "category": "Travel",
+    "description": "Flight booking",
+    "transactionDate": "2026-03-26"
+  }
+}

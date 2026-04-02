@@ -1,0 +1,23 @@
+meta {
+  name: Auth - Login (Viewer)
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{userBaseUrl}}/api/auth/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "email": "{{viewerEmail}}",
+    "password": "{{viewerPassword}}"
+  }
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Users - Update User (Admin)
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{userBaseUrl}}/api/users/{{userId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{accessToken}}
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "username": "updated_user",
+    "email": "updated_user@zorvyn.local",
+    "password": "Updated@123"
+  }
+}
