@@ -1,0 +1,19 @@
+I implemented the system as exactly two Spring Boot microservices, I implemented the system as exactly two Spring Boot microservices. This helps make both services individually scaleable when required based on load. 
+
+I used layered architecture (`controller -> service -> repository -> entity`) with DTO-based request/response models to keep business logic centralized, prevent entity leakage, and make the code easier to navigate and maintain. Validation is handled at DTO boundaries using Jakarta Validation annotations, and both services use global exception handlers with a consistent structured error payload.
+
+ I used Oracle XE with Flyway migrations and explicit indexing to support common query paths. Soft delete is implemented for users and financial records to preserve historical data while keeping “active” data behavior clean.
+
+I also used service interfaces (`UserService`, `AuthService`, `FinancialRecordService`, `DashboardService`) with implementation classes to enforce clear contracts between layers. This applies the Dependency Inversion principle and improves testability, because controllers depend on abstractions, not concrete classes.
+
+I used SOLID principles througout the entire assignment 
+1) S:  controllers handle HTTP concerns, services handle business rules, repositories handle persistence.
+2)O: layer dependencies are on interfaces/contracts, with implementations injected by Spring.
+3)D:  layer dependencies are on interfaces/contracts, with implementations injected by Spring.
+4) O& I:role checks, validation, and service boundaries are organized so behavior can be extended with minimal changes to existing components.
+
+For dataintegrity ACID Behaviour is preserved.
+
+Redis is used in the finance service with a cache-aside strategy for read-heavy APIs (dashboard summary and record-by-id). TTL is configured, and cache entries are invalidated on write operations to maintain practical consistency. Cache failures degrade safely to database reads, so availability is prioritized over cache dependency.
+
+Docker and Docker Compose are used to standardize runtime behavior and keep setup reproducible across environments.
