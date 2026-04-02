@@ -353,6 +353,7 @@ Default users:
 This repository includes a single Swagger UI page that can show both services:
 
 - [docs/index.html](docs/index.html)
+- Live URL: `https://jay-1409.github.io/zorvyan-assignment/`
 
 It reads static OpenAPI snapshots from:
 
@@ -375,6 +376,10 @@ Then commit/push `docs/` and enable GitHub Pages:
 Your unified docs URL will be:
 
 `https://<your-username>.github.io/<your-repo-name>/`
+
+For this repository:
+
+`https://jay-1409.github.io/zorvyan-assignment/`
 
 ## 12. How to Run with Docker
 
