@@ -1,0 +1,15 @@
+You will require Java 17+, Maven 3.9+, Docker, and Docker Compose to be able to conveniently run this project. 
+
+1) Clone the project from github link
+2) docker compose up --build, the Docker Compose file already contains all that is required
+3) a run.The script (starts both services) is available but not preferred for use
+4) Automated tests are included (unit + security + integration). Run with "mvn test" run them inside the directory of any of the service "cd finance-service && mvn test"
+5) Bruno(api testing alternative to Postman) collection of api is included in the Bruno directory.
+
+Future scope
+1) Add CI pipeline with automated checks and coverage gates.
+2) Add refresh token flow and token revocation strategy.
+3) Add production-grade secret management.
+4) Add deeper end-to-end tests with containerized dependencies in CI.
+
+
